@@ -1,0 +1,324 @@
+******************************Basic Of Linux******************************
+
+
+TO see the different kinf of shell It Can support 
+
+cat etc/shells
+
+
+/bin/sh
+/bin/bash
+/sbin/nologin
+/bin/dash
+/bin/tcsh
+/bin/csh
+
+
+sh stands for the shell that Our system supports and bash stands for the born again shell 
+
+
+
+To check the where the bash is located 
+
+which bash 
+
+
+To list the all available contents 
+
+ls -ll
+
+To make the script we are starting with the below extention
+
+
+#/ /bin/bash
+
+echo "Hello World"
+
+
+./hello.sh
+bash: ./hello.sh: Permission denied
+
+
+when we create the file with the help of the touch command then we have to give the permission to execute permission
+
+chmod +x hello.sh
+
+[cloudera@quickstart Desktop]$ ./hello.sh
+Hello World
+
+
+*****************************************Agenda Will be  Variables and Comments ************************
+When we start with the # an line then it will be comments this is not executed by the Scripts 
+But it will give us some informations 
+
+
+echo "Hello worlds" # this is comments after the echo code 
+
+
+We are having two types variables 
+1) System variables (Moslty these are written in the Capital letters) 
+2) User defined variables (Moslty these are written in the small letters) 
+
+
+Now Here it is the examples
+
+
+#/ /bin/bash
+
+echo "Hello world!"
+
+echo $BASH
+echo $BASH_VERSION
+echo $PWD
+
+./hello.sh
+
+name=Monu
+
+echo $name
+
+
+#/ /bin/bash
+
+
+echo "Hello World"
+
+
+echo $BASH
+echo $BASH_VERSION
+
+echo $PWD
+name=Monu
+val=value
+echo The name is $name
+
+echo The Price $val
+
+
+variable name should not start with the integer Otherwise it will not give us the right result 
+
+
+***********************************************READ INPUT FROM YOUR TERMINALS******************************
+
+#/ /bin/bash
+
+
+echo "Enter The User_Name: "
+read name
+echo "Entered name : $name"
+
+
+
+#/ /bin/bash
+
+
+echo "Enter The User_Name: "
+read name1 name2 name3
+echo "Entered names are : $name1,$name2,$name3"
+
+
+
+
+**********************************************HOW WE CAN PASS ARGUMENTS IN SHELL SCRIPT*********************************************
+
+
+#/ /bin/bash
+
+echo $1 $2 $3 '> echo $1 $2 $3'
+
+args=("$@")
+echo  ${args[0]} ${args[1]} ${args[2]} ${args[3]}
+
+echo $@
+
+When I will pass these arguments then it will take the value 
+./hello.sh Mark Tom John
+
+./hello.sh Mark Tom John > echo $1 $2 $3
+
+This is how we can pass the arguments 
+
+All the variables will be stored in this default arguments 
+echo $@
+
+Number of arguments that has been passed we can check with the help of the 
+echo $#
+
+
+
+*******************************************if then , if then else Statements*************************************
+
+
+To use the if statement we have to right the statement like this. Below are the demo of the script 
+Expressions 
+An expression can be: String comparison, Numeric comparison, File operators and Logical operators and it is represented by [expression]:
+String Comparisons:  
+---------------------------------
+=  compare if two strings are equal
+!=  compare if two strings are not equal
+-n  evaluate if string length is greater than zero
+-z  evaluate if string length is equal to zero 
+
+Examples: 
+[ s1 = s2 ]  (true if s1 same as s2, else false)
+[ s1 != s2 ]  (true if s1 not same as s2, else false)
+[ s1 ]   (true if s1 is not empty, else false)
+[ -n s1 ]   (true if s1 has a length greater then 0, else false)
+[ -z s2 ]   (true if s2 has a length of 0, otherwise false)
+
+Number Comparisons: 
+------------------------------------
+-eq compare if two numbers are equal
+-ge compare if one number is greater than or equal to a number
+-le  compare if one number is less than or equal to a number
+-ne  compare if two numbers are not equal
+-gt  compare if one number is greater than another number
+-lt  compare if one number is less than another number 
+
+Examples: 
+[ n1 -eq n2 ]  (true if n1 same as n2, else false)
+[ n1 -ge n2 ]  (true if n1greater then or equal to n2, else false)
+[ n1 -le n2 ]  (true if n1 less then or equal to n2, else false)
+[ n1 -ne n2 ]  (true if n1 is not same as n2, else false)
+[ n1 -gt n2 ]  (true if n1 greater then n2, else false)
+[ n1 -lt n2 ]  (true if n1 less then n2, else false)
+
+#/ /bin/bash
+
+if [condition]
+
+then 
+statement
+fi
+
+Let's say an examples 
+
+count=10
+if [ $count -eq 9 ]
+then
+echo "Condition is true"
+fi
+
+
+
+count=10
+if [ $count -ne 9 ]
+then
+echo "Condition is true"
+fi
+
+
+For the another example I will take an example
+
+word=abc
+
+if [ $word == "abc" ]
+then
+echo "The condition is true"
+fi
+
+
+
+For condition is not true it will not give me the any resuls
+
+like 
+
+word=abc
+
+if [ $word == "abccc" ]
+then 
+echo "This condition is true"
+fi
+
+
+We can use the else condition with the if conditions hare let's see how we can use these over here 
+
+
+word=a
+
+if [ $word == "b" ]
+then
+echo "This is true"
+else
+echo "This is not true"
+fi
+
+
+word=a
+
+if [ $word == "b" ]
+then
+echo "Condition b is true"
+elif [ $word == "a" ]
+then
+echo "Condition a is true"
+else
+echo "This is not true"
+fi
+
+
+****************************************************FILE TEST OPERATORS*****************************************
+\c is used to keep the curder on the same line we have to use the -e to run the \c
+
+echo -e "Enter the name of the file : \c"
+read file_name
+if [ -e $file_name ]
+then
+echo "$file_name found"
+else
+echo "$file_name not found"
+fi
+
+-e flag is used for the existing the file and -f used for the cheking file is exist or not , -d for the directory
+
+
+
+********************************************8How to append output to the end of text file*********************************
+
+
+I will have to write an script for this 
+
+echo -e "Enter the Filename : \c"
+
+read file_name
+
+if [ -f $file_name ]
+then 
+	if [ -w $file_name ]
+	then 
+	echo "Type some text data. To quit press ctrl+d."
+	cat >> $file_name
+	else
+	echo "$file_name does not have the write permission"
+	fi
+else
+echo "$file_name does not exists"
+fi
+
+
+To create the Empty file we are going to use the touch command 
+
+touch test 
+
+How to remove the permission the write from the directory
+
+chmod -w test
+chmod +w test
+
+
+
+echo -e "Enter the filename : \c"
+read filename
+
+if [ -f $filename ]
+then 
+	if [ -w $filename ]
+	then
+	echo "Type some data and press ctrl + d to quit the operation"
+	cat >> $filename
+	else
+	echo "$filename does not have the write permission press chmod +w $filname"
+	fi
+else
+echo "$filename does not exist"
+fi
